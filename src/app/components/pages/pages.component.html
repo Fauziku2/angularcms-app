@@ -1,0 +1,14 @@
+<div class="row" *ngIf="hasSidebar">
+  <div class="col-md-8">
+    <div [innerHTML]="pageBody?.content"></div>
+  </div>
+  <div class="col-md-4">
+    <div [innerHTML]="sidebar"></div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!hasSidebar">
+  <div class="col-md-12">
+    <div [innerHTML]="pageBody?.content"></div>
+  </div>
+</div>

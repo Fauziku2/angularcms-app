@@ -1,0 +1,44 @@
+<div *ngIf="successMsg" class="alert alert-success">
+  <p>Page added.</p>
+</div>
+<div *ngIf="errorMsg" class="alert alert-danger">
+  <p>Page title exist, choose another.</p>
+</div>
+
+<h1 class="page-title">Add a page</h1>
+<a class="btn btn-primary" routerLink="/admin/pages">Back to all pages</a>
+<br><br>
+
+<form novalidate #f="ngForm" (ngSubmit)="addPage(f)">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text"
+           class="form-control"
+           placeholder="Title"
+           id="title"
+           name="title"
+           [(ngModel)]="title"
+           #pageTitle="ngModel"
+           minlength="3"
+           required>
+  </div>
+  <div class="alert alert-danger" *ngIf="pageTitle.errors?.required && pageTitle.touched">
+    Title is required.
+  </div>
+  <div class="alert alert-danger" *ngIf="pageTitle.errors?.minlength && pageTitle.touched">
+    Minimum length is 3.
+  </div>
+  <div class="form-group">
+    <label for="content">Content:</label>
+    <ckeditor [editor]="Editor" name="content" [(ngModel)]="content" id="content"></ckeditor>
+  </div>
+  <div class="form-group">
+    <label for="sidebar">
+      Has Sidebar:
+      <input type="checkbox" name="hasSidebar" [(ngModel)]="hasSidebar" id="sidebar">
+    </label>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" [disabled]="!f.valid">Add page</button>
+  </div>
+</form>
